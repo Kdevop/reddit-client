@@ -1,0 +1,63 @@
+.postCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #F4FCFF;
+    border-radius: 25px;
+    margin-bottom: 10px;
+    color: black; 
+    align-items: center;
+}
+
+.imagecontainer {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 70px;
+    align-items: center;
+}
+
+h2 {
+    font-size: 40px;
+    font-weight: 1000;
+    margin-top: 10px;
+}
+
+.ratingcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    background-color: #D9D9D9;
+    border-radius: 25px;
+    max-height: 175px;
+}
+
+.arrow {
+    width: 55px;
+    height: 53px;
+}
+
+h3 {
+    color: #DE1B0F;
+}
+
+.author {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #D9D9D9;
+    width: 650px;
+    border-radius: 25px;
+}
+
+.commentimg {
+    max-width: 50px;
+    max-width: 50px;
+}
+
+.author p {
+    color: black;
+    font-size: 35px;
+    margin-left: 10px;
+}

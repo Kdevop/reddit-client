@@ -1,0 +1,12 @@
+.search input {
+    background: linear-gradient(to right, #DE1B0F, #780F08);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 590;
+    font-size: 50px;
+    border-radius: 20px;
+    border: 4.75px solid black;
+    width: 265px;
+    opacity: 1;
+}
+
