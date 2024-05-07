@@ -8,12 +8,12 @@ const HomePage = () => {
     return(
         <div>
         <div className={Styles.home}>
-            <div className={Styles.griditem1}>
+            <aside className={Styles.griditem1}>
                 <Subreddits/>
-            </div>
-            <div className={Styles.griditem2}>
+            </aside>
+            <main className={Styles.griditem2}>
                 <Reddits/>
-            </div>
+            </main>
         </div>
         <Footer/>
         </div>

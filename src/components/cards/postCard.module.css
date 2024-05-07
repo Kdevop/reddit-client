@@ -15,10 +15,24 @@
     flex-direction: row;
     gap: 70px;
     align-items: center;
+    max-width: 90%;
 }
 
-h2 {
-    font-size: 40px;
+.contentcontainer {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    object-fit: scale-down;
+}
+
+.postimage {
+    max-width: 100%;
+    height: auto;
+    object-fit: scale-down;
+}
+
+.PostHeading {
+    font-size: 30px;
     font-weight: 1000;
     margin-top: 10px;
 }
