@@ -1,54 +1,82 @@
-// import { createSlice, createSelector } from '@reduxjs/toolkit';
-// import { getPosts } from '../api/api';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// const initialState = {
-//     posts: [],
-//     error: false,
-//     isLoading: false,
-//     searchTerm: '',
-//     selectedSubreddit: '',
-// };
+export const API_ROOT = 'https://www.reddit.com';
 
-// const postSlice = createSlice({
-//     name: 'redditpost',
-//     initialState, 
-//     reducers: {
-//         setPosts (state, action) {
-//             state.post = action.payload;
-//         },
-//         startGetPosts(state) {
-//             state.isLoading = true;
-//             state.error = false;
-//         },
-//         getPostSuccess(state, action) {
-//             state.isLoading = false;
-//             state.data.children = action.payload;
-//         },
-//         getPostFailed(state) {
-//             state.isLoading = false;
-//             state.error = true;
-//         },
-//     },
-// });
 
-// export const {
-//     setPosts, 
-//     startGetPosts,
-//     getPostSuccess,
-//     getPostFailed,
-// } = postSlice.actions;
+export const fetchredditpost = createAsyncThunk('posts/fetchRedditPost', async (_, { rejectWithValue }) => {
+    try {
+        const data = await fetch(`${API_ROOT}/.json`);
+        const response = await data.json();
 
-// export default postSlice.reducer;
+        return response.data.children.map((redditpost) => redditpost.data);
 
-// export const fetchPosts = () => async (dispatch) => {
-//     try {
-//         dispatch(startGetPosts());
-//         const posts = await getPosts();
-//         dispatch(getPostSuccess(posts));
-        
-//     } catch (error) {
-//         dispatch(getPostFailed());
-//     }
-// };
+    } catch (error) {
+        return rejectWithValue('Failed to fetch posts');
+    }
+});
 
-// export const selectedPosts = state => state.posts.post;
+//we will need to update this following changes to the slice. 
+export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (_, { getState, rejectWithValue }) => {
+    const term = getState().posts.searchTerm;
+    try {
+        const data = await fetch(`${API_ROOT}/search/json?q=${term}`);
+        if (!data.ok) {
+            if (data.status === 404) {
+                console.warn('Resource not found:', term);
+                return rejectWithValue('Resource not found');
+            } else {
+                throw new Error(`HTTP error! status: ${data.status}`);
+            }
+        }
+        const response = await data.json();
+        return response.data.children.map((redditpost) => redditpost.data);
+    } catch (error) {
+        console.error('Error fetching data:', error.message);
+        return rejectWithValue(`Failed to fetch posts: ${error.message}`);
+    }
+});
+
+const postSlice = createSlice({
+    name: 'posts',
+    initialState: {
+        data: {
+            children: [],
+        },
+        isLoading: false,
+        error: false,
+    },
+    reducers: {
+        //    extra reducers if needed would go here
+    }, extraReducers: (builder) => {
+        builder
+            .addCase(fetchredditpost.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.data.children = action.payload;
+            })
+            .addCase(fetchredditpost.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = true;
+            })
+            .addCase(fetchredditpost.pending, (state) => {
+                state.isLoading = true;
+                state.error = false;
+            })
+            .addCase(fetchFromSearch.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.data.children = action.payload;
+            })
+            .addCase(fetchFromSearch.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = true;
+            })
+            .addCase(fetchFromSearch.pending, (state) => {
+                state.isLoading = true;
+                state.error = false;
+            })
+    }
+})
+
+export default postSlice.reducer;
+export const returnedPost = (state) => state.posts.data.children;
+
+

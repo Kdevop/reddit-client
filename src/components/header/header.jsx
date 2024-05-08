@@ -3,6 +3,12 @@ import SearchBar from '../search/search';
 import styles from './header.module.css';
 import logo from '../../assets/square-reddit.png';
 
+
+// mockdata at the following end point where 'happy' will be the {term}
+// https://www.reddit.com/search.json?q=$happy
+// just needed somewhere to put this
+
+
 const Header = () => {
     return (
         <div className={styles.navbar} >

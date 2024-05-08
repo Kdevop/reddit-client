@@ -1,16 +1,28 @@
 import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PostCard from '../cards/postCard';
 import Styles from './reddits.module.css';
 import Skeleton from 'react-loading-skeleton';
-import popredmock from '../../mockdata/mockRedditsPosts.json';
+import { fetchredditpost, returnedPost } from '../../reduxstore/postSlice'; 
+import { useLocation } from 'react-router-dom';
 
- 
 const Reddits = () => {
-    const posts = popredmock.data.children.map((post) => post.data)
-    
+    // const posts = popredmock.data.children.map((post) => post.data)
+    const dispatch = useDispatch();
+    const location = useLocation();
+
+    useEffect(() => {
+        if (location.pathname === '/') {
+            dispatch(fetchredditpost());
+        }
+    }, [dispatch, location.pathname]);
+
+    const reddits = useSelector(returnedPost);
+    console.log(reddits)
+
     return (
         <div className={Styles.postcontiner}>
-            {posts.map((post) => {
+            {reddits.map((post) => {
                 return (
                 <PostCard
                     key={post.id}

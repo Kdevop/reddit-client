@@ -1,39 +1,53 @@
-// import { createSlice } from '@reduxjs/toolkit';
-// import { getSubreddits } from '../api/api';
-// import subredmock from '../mockdata/mockSubreddits.json';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-// const initialState = {
-//   subreddits: [],
-//   error: false,
-//   isLoading: false,
-// }
+export const API_ROOT = 'https://www.reddit.com';
 
-// const subRedditSlice = createSlice({
-//   name: 'subreddits',
-//   initialState,
-//   reducers: {
-//     startGetSubreddits(state) {
-//       state.isLoading = true;
-//       state.error = false;
-//     },
-//     getSubredditsSuccess(state, action) {
-//       state.isLoading = false;
-//       state.subreddits = action.payload;
-//     },
-//     getSubredditsFailed(state) {
-//       state.isLoading = false;
-//       state.error = true;
-//     },
-//   },
-// });
+const initialState = {
+  subreddits: [],
+  error: false,
+  isLoading: false,
+}
 
-// export const {
-//   getSubredditsFailed,
-//   getSubredditsSuccess,
-//   startGetSubreddits,
-// } = subRedditSlice.actions;
+const subRedditSlice = createSlice({
+  name: 'subreddits',
+  initialState,
+  reducers: {
+    // space for 'normal' reducers
+  }, extraReducers: (builder) => {
+    builder
+        .addCase(fetchSubreddits.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.subreddits = action.payload;
+    })
+        .addCase(fetchSubreddits.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = true;
+        })
+        .addCase(fetchSubreddits.pending, (state) => {
+            state.isLoading = true;
+            state.error = false;
+        });
+    }
+});
 
-// export default subRedditSlice.reducer;
+export default subRedditSlice.reducer;
+
+export const fetchSubreddits = createAsyncThunk('subreddits/fetchSubreddits', async (_, { rejectWithValue }) => {
+    try{
+        const data = await fetch(`${API_ROOT}/subreddits.json`);
+        const response = await data.json();
+        const output = response.data.children.map((subreddits) => subreddits.data);
+        console.log(output);
+        return output;
+    } catch (error) {
+        return rejectWithValue('Failed to fetch subreddits');
+    }
+})
+
+
+export const selectedSubreddits = (state) => state.subreddits.subreddits;
+
+
 
 // export const fetchSubreddits = () => async (dispatch) => {
 //   try {
@@ -45,12 +59,6 @@
 //     dispatch(getSubredditsFailed());
 //   }
 // };
-
-// export const selectedSubreddits = (state) => state.subreddits.subreddits;
-
-
-
-
 
 
 

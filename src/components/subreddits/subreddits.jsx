@@ -1,21 +1,27 @@
 import React, { useEffect } from 'react';
 import SubredditsCard from '../cards/subredditCard';
 import Styles from './subreddits.module.css';
-import subredmock from '../../mockdata/mockSubreddits.json';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectedSubreddits, fetchSubreddits } from '../../reduxstore/subredditSlice';
+
 
 
 const Subreddits = () => {
-    const subreddits = subredmock.data.children.map((subreddit) => subreddit.data);
+    const dispatch = useDispatch();
+    const subreddits = useSelector(selectedSubreddits);
+
+    useEffect(() => {
+        dispatch(fetchSubreddits());
+    }, [dispatch]);
       
     return ( 
-        // My attempt using my styling
-
+        
         <div className={Styles.subred}>
             <h2 className={Styles.SRHeading}>Subreddits</h2>
 
             <div className={Styles.scardcontainer}>
                 <div className={Styles.griditemsc}>
-                    {subreddits.map((subreddit) => (
+                    {subreddits && subreddits.map((subreddit) => (
                         <SubredditsCard
                             key={subreddit.id}
                             icon={subreddit.icon_img || `https://api.adorable.io/avatars/25/${subreddit.display_name}`}

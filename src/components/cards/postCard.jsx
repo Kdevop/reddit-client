@@ -38,7 +38,7 @@ const PostCard = (props) => {
                         {props.img ? (
                             <img src={props.img} className={Styles.postimage} alt='Image from post'/>
                         ) : (
-                            <p>{props.selftext}</p>
+                            <p>{props.words}</p>
                         )}
                         
                         

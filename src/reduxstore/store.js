@@ -1,13 +1,19 @@
-// import { configureStore, combineReducers } from "@reduxjs/toolkit";
-// import subRedditReducer from './subredditSlice';
-// import postReducer from './postSlice';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import subRedditReducer from './subredditSlice';
+import postSliceReducer from './postSlice';
+import {thunk as thunkMiddleware} from 'redux-thunk';
+import searchSlice from "../components/search/searchSlice";
 
+const rootReducers = combineReducers({
+    subreddits: subRedditReducer, 
+    posts: postSliceReducer,
+    search: searchSlice,
+})
 
-// export const store = configureStore({
-//     reducer: combineReducers({
-//         subreddits: subRedditReducer,
-//         posts: postReducer, 
-//     }),
-// });
+const store = configureStore({
+        reducer: rootReducers,
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunkMiddleware)
+        
+});
 
-// export default store;
+export default store;
