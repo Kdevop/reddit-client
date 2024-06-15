@@ -27,6 +27,7 @@ const Subreddits = () => {
                             icon={subreddit.icon_img || `https://api.adorable.io/avatars/25/${subreddit.display_name}`}
                             alt={subreddit.display_name}
                             name={subreddit.display_name}
+                            url={subreddit.url}
                         />
 
                     ))

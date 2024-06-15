@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
 function useErrorBoundary() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();

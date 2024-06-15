@@ -1,24 +1,43 @@
 import React from 'react';
-
 import Footer from '../components/footer/footer';
 import Styles from './error.module.css';
 import skull from '../assets/skull-crossbones-solid.png';
 import { useNavigate } from 'react-router-dom';
-import useErrorBoundary from '../components/errorBoundary/useErrorBoundary';
+// import useErrorBoundary from '../components/errorBoundary/useErrorBoundary';
 
 
+class ErrorBoundary extends React.Component {
+    state = { hasError: false };
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        console.log(error, info);
+        // Consider logging to an external service here
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <ErrorPage />;
+        }
+        return this.props.children;
+    }
+}
+
+export default ErrorBoundary;
+  
 
 // styling to be completed after routing is sorted. 
 
 const ErrorPage = () => {
-    const error = useErrorBoundary();
+    
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        if (error) {
-            navigate('/error');
-        }
-    }, [error, navigate])
+        navigate('/error');
+    }, [navigate])
 
     return(
         <div>
@@ -40,4 +59,3 @@ const ErrorPage = () => {
     );
 };
 
-export default ErrorPage;

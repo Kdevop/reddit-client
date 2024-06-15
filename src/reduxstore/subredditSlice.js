@@ -37,7 +37,6 @@ export const fetchSubreddits = createAsyncThunk('subreddits/fetchSubreddits', as
         const data = await fetch(`${API_ROOT}/subreddits.json`);
         const response = await data.json();
         const output = response.data.children.map((subreddits) => subreddits.data);
-        console.log(output);
         return output;
     } catch (error) {
         return rejectWithValue('Failed to fetch subreddits');

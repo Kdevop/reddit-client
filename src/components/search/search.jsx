@@ -3,10 +3,7 @@ import Styles from './search.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import { fetchFromSearch } from '../../reduxstore/postSlice';
-import { setSearchTerm, clearSearchTerm, selectSearchTerm } from '../../components/search/searchSlice'
-
-// needed - searchResults function dipatches to the store (onsubmit)
-// needed function to set search term in store(handle change)
+import { setSearchTerm, clearSearchTerm, selectSearchTerm } from '../../components/search/searchSlice';
 
 const SearchBar = () => {
     const dispatch = useDispatch();
@@ -30,6 +27,8 @@ const SearchBar = () => {
             pathname: '/search',
             search: `?${query.toString()}` 
         })
+
+        dispatch(setSearchTerm(''))
     }
 
     const handleChange = e => dispatch(setSearchTerm(e.target.value));

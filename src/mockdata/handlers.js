@@ -2,6 +2,9 @@ import { http, HttpResponse } from 'msw';
 import subredmock from './mockSubreddits.json';
 import postmock from './mockRedditsPosts.json';
 import search from './mockSearchResults.json';
+import subredpost from './mockSubredditsPost.json';
+import fullPost from './mockFullPost.json';
+
 
 
 const API_ROOT = 'https://www.reddit.com';
@@ -14,13 +17,15 @@ export const handlers = [
         return HttpResponse.json(postmock)
     }), //returns mock post data when api for post is called
     http.get(`${API_ROOT}/search/json`, () => {
-        return new HttpResponse('Not Found',{
-            status: 404,
-            headers: {
-                'Content-Type': 'text/plain',
-            },
-        });
+        return HttpResponse.json(search);
     }), // returns a mock search result when the search function is called.
+    http.get(`${API_ROOT}/subreddit/.json`, () => {
+        return HttpResponse.json(subredpost);
+    }), // returns post for subreddit
+    http.get(`${API_ROOT}/fullpost.json`, () => {
+        return HttpResponse.json(fullPost);
+    }) //returns post for comments
+
 ];
 
 export default handlers;

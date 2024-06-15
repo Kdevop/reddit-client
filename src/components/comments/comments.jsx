@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Comment = () => {
+const Comments = () => {
     return (
-        <div>r/this is a comment</div>
+        <div>
+            <p>comments will go here</p>
+            <p>comments will go here</p>
+            <p>comments will go here</p>
+        </div>
     )
 };
 
-export default Comment;
+export default Comments;

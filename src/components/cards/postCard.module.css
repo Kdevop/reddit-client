@@ -75,3 +75,7 @@ h3 {
     font-size: 35px;
     margin-left: 10px;
 }
+
+.commentsbutton:hover {
+    cursor: pointer;
+}

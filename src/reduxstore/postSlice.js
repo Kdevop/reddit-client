@@ -36,6 +36,23 @@ export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (
     }
 });
 
+export const fetchSubredditPost = createAsyncThunk('posts/fetchSubredditPost', async (subreddit) => {
+    try {
+        const data = await fetch(`${API_ROOT}/subreddit/.json`);
+        if(data.status !== 200) {
+            console.error('Failed to get reddit post')
+            throw new Error(`Post not found: ${data.status}`)
+        } else {
+            const response = await data.json();
+            return response.data.children.map((redditpost) => redditpost.data);
+        }
+    } catch (error) {
+        console.error('Error fetching reddit post data:', error.message);
+        throw new Error(`Failed to fetch reddit posts: ${error.message}`);
+    }
+});
+
+
 const postSlice = createSlice({
     name: 'posts',
     initialState: {
@@ -73,10 +90,21 @@ const postSlice = createSlice({
                 state.isLoading = true;
                 state.error = false;
             })
+            .addCase(fetchSubredditPost.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.data.children = action.payload;
+            })
+            .addCase(fetchSubredditPost.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = true;
+            })
+            .addCase(fetchSubredditPost.pending, (state) => {
+                state.isLoading = true;
+                state.error = false;
+            })
+            
     }
 })
 
 export default postSlice.reducer;
 export const returnedPost = (state) => state.posts.data.children;
-
-

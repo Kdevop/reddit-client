@@ -7,13 +7,15 @@ import SearchPage from './pages/search';
 import ErrorPage from './pages/error';
 
 
+
 // routing for jsx components.
 const appRouter= createBrowserRouter(createRoutesFromElements(
   <Route path='/' element={<Root/>}>
     <Route index element={<HomePage/>}/>
-    {/* <Route path=':subreddit' element={<HomePage/>} this will be used for the subreddit selection but it is not build yet */}
+    <Route path='subreddit' element={<HomePage/>}/>
     <Route path='search' element={<SearchPage/>}/> 
     <Route path='error' element={<ErrorPage/>}/>
+    
     
   </Route>
 ))
