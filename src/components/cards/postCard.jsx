@@ -5,13 +5,15 @@ import ArrowDown from '../../assets/arrow-down-solid.png';
 import CommentsImg from '../../assets/comment-solid.png';  
 import Skeleton from 'react-loading-skeleton';
 import Comments from '../comments/comments';
-import { fetchPostComments } from '../../reduxstore/commentsSlice';
-import { useDispatch } from 'react-redux';
+// import { fetchPostComments, getComments, isLoading } from '../../reduxstore/commentsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const PostCard = (props) => {
     const dispatch = useDispatch();
     const [showComments, setShowComments] = useState(false);
+    // const postComment = useSelector(getComments);
+    // const status = useSelector(isLoading);
 
 
         const shortenNumber = (num, digits) => {
@@ -28,9 +30,10 @@ const PostCard = (props) => {
         return num;
     }
 
-    useEffect(() => {
-        dispatch(fetchPostComments(props.id));
-    }, [showComments]);
+    
+    // useEffect(() => {
+    //     dispatch(fetchPostComments(props.id));
+    // }, dispatch);
     
     const displayComments = () => {
        setShowComments(!showComments);
@@ -50,7 +53,7 @@ const PostCard = (props) => {
                     </aside>
                     <div className={Styles.contentcontainer}>
                         {props.img ? (
-                            <img src={props.img ||<Skeleton/>} className={Styles.postimage} alt='Image from post'/>
+                            <img src={props.img || <Skeleton/>} className={Styles.postimage} alt='Image from post'/>
                         ) : (
                             <p>{props.words || <Skeleton/>}</p>
                         )}
@@ -63,7 +66,7 @@ const PostCard = (props) => {
                     <button type='button' className={Styles.commentsbutton} onClick={displayComments}><img src={CommentsImg} className={Styles.commentimg} alt='comment button'/></button>
                     
                 </div>
-                {showComments ? <Comments /> : null}
+                {showComments ?  <Comments postId = {props.id} /> : null}
                 
             </div>
             

@@ -1,49 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const API_ROOT = 'https://www.reddit.com';
-
-// fetch request to be written
-export const fetchPostComments = createAsyncThunk('postComments/fetchPostComments', async (postId) => {
-    try {
-        const response = await fetch(`https://api.reddit.com/comments/${postId}`);
-        if (response.status !== 200) {
-            console.error('failed to fetch post')
-            throw new Error(`Post not found: ${response.status}`)
-        } else {
-            const json = await response.json();
-            console.log(json);
-            return json[1].data.children;
-        }
-    } catch (error) {
-        console.error('Failed to fetch post data');
-        throw new Error(`Failed to fetch post: ${error.message}`);
+export const fetchComments = createAsyncThunk('comments/fetchComments', async (postId) => {
+        const response = await fetch(`https://api.reddit.com/comments/${postId}`)
+        const data = await response.json();
+        // console.log(data[1].data.children);
+        return data[1].data.children;
     }
-}
-);
+)
 
-// for later - correct route for comments `https://www.reddit.com/${permalink}.json`
-
-const commentsSlice = createSlice({
-    name: 'postComments',
+const commentSlice = createSlice({
+    name: 'comments',
     initialState: {
         comments: [],
-        isLoading: false,
-        hasError: false,
+        status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+        error: null,
     },
     reducers: {},
-    extraReducers: (builder) => {
+    extraReducers: builder => {
         builder
-            .addCase(fetchPostComments.pending, (state) => {
-                state.isLoading = true;
-                state.hasError = false;
+            .addCase(fetchComments.pending, state => {
+                state.status = 'pending'
             })
-            .addCase(fetchPostComments.rejected, (state) => {
-                state.isLoading = false;
-                state.hasError = true;
-            })
-            .addCase(fetchPostComments.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.hasError = false;
+            .addCase(fetchComments.fulfilled, (state, action) => {
+                state.status = 'succeeded'
                 const allComments = action.payload.map(comment => {
                     const {
                         author,
@@ -51,23 +30,28 @@ const commentsSlice = createSlice({
                         id,
                         replies,
                         body,
-
+                        
                     } = comment.data;
                     return {
                         author: author,
                         time: created_utc,
                         id: id,
+                        // postId: link_id.substr(3),
                         replies: replies,
                         body: body,
+                       
                     }
                 })
                 state.comments = allComments;
-
-            });
+            })
+            .addCase(fetchComments.rejected, (state, action) => {
+                state.status = 'failded';
+                state.error = action.error.message 
+            })
     }
 })
 
-export default commentsSlice.reducer;
-export const getComments = (state) => state.postComments.comments;
-export const isLoading = (state) => state.postComments.isLoading;
-export const hasError = state => state.postComments.hasError; 
+export default commentSlice.reducer;
+export const getComments = state => state.comments.comments;
+export const getStatus = state => state.comments.status;
+export const getError = state => state.comments.error;

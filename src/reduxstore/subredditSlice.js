@@ -36,6 +36,7 @@ export const fetchSubreddits = createAsyncThunk('subreddits/fetchSubreddits', as
     try{
         const data = await fetch(`${API_ROOT}/subreddits.json`);
         const response = await data.json();
+        console.log(response);
         const output = response.data.children.map((subreddits) => subreddits.data);
         return output;
     } catch (error) {
@@ -48,16 +49,6 @@ export const selectedSubreddits = (state) => state.subreddits.subreddits;
 
 
 
-// export const fetchSubreddits = () => async (dispatch) => {
-//   try {
-//     dispatch(startGetSubreddits());
-//     const subreddits = await getSubreddits();
-//     console.log(subreddits);
-//     dispatch(getSubredditsSuccess(subreddits));
-//   } catch (error) {
-//     dispatch(getSubredditsFailed());
-//   }
-// };
 
 
 

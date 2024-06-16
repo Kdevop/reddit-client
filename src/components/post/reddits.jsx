@@ -45,6 +45,7 @@ const Reddits = () => {
                     author={post.author}
                     likes={post.ups}
                     detail={post.permalink}
+                    id={post.id}
                 />
                 );
             })}

@@ -16,13 +16,13 @@ export const fetchredditpost = createAsyncThunk('posts/fetchRedditPost', async (
 });
 
 //we will need to update this following changes to the slice. 
-export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (_, { getState, rejectWithValue }) => {
+export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (searchTerm, { getState, rejectWithValue }) => {
     const term = getState().posts.searchTerm;
     try {
-        const data = await fetch(`${API_ROOT}/search/json?q=${term}`);
+        const data = await fetch(`${API_ROOT}/search.json?q=${searchTerm}`);
         if (!data.ok) {
             if (data.status === 404) {
-                console.warn('Resource not found:', term);
+                console.warn(`Resource not found:${data.status}`);
                 return rejectWithValue('Resource not found');
             } else {
                 throw new Error(`HTTP error! status: ${data.status}`);
@@ -38,7 +38,7 @@ export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (
 
 export const fetchSubredditPost = createAsyncThunk('posts/fetchSubredditPost', async (subreddit) => {
     try {
-        const data = await fetch(`${API_ROOT}/subreddit/.json`);
+        const data = await fetch(`${API_ROOT}/${subreddit}/.json`);
         if(data.status !== 200) {
             console.error('Failed to get reddit post')
             throw new Error(`Post not found: ${data.status}`)
