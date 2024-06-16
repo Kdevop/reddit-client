@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    gap: 70px;
+    gap: 35px;
     align-items: center;
     max-width: 90%;
 }
@@ -23,6 +23,7 @@
     height: auto;
     display: block;
     object-fit: scale-down;
+    margin-top: 1rem;
 }
 
 .postimage {
@@ -35,6 +36,7 @@
     font-size: 30px;
     font-weight: 1000;
     margin-top: 10px;
+    text-align: center;
 }
 
 .ratingcontainer {
@@ -44,12 +46,12 @@
     gap: 10px;
     background-color: #D9D9D9;
     border-radius: 25px;
-    max-height: 175px;
+    max-height: 20rem;
 }
 
 .arrow {
-    width: 55px;
-    height: 53px;
+    max-width: 55px;
+    max-height: 53px;
 }
 
 h3 {
@@ -61,13 +63,14 @@ h3 {
     flex-direction: row;
     justify-content: space-between;
     background-color: #D9D9D9;
-    width: 650px;
+    width: 85%;
     border-radius: 25px;
+    margin: 1rem;
 }
 
 .commentimg {
     max-width: 50px;
-    max-width: 50px;
+    
 }
 
 .author p {
@@ -78,4 +81,52 @@ h3 {
 
 .commentsbutton:hover {
     cursor: pointer;
+}
+
+/* responsive design */
+@media only screen and (max-width: 600px) {
+    .PostHeading {
+        font-size: 1rem;
+        font-weight: 500;
+        margin: 5px;
+        text-align: center;
+    }
+
+    .imagecontainer {
+        gap: 10px;
+        align-items: center;
+        max-width: 95%;
+    }
+
+    .ratingcontainer {
+        gap: 5px;
+        border-radius: 20px;
+        max-height: 10rem;
+    }
+
+    .ratingcontainer h3 {
+        font-size: 0.75rem;
+    }
+
+    .arrow {
+        max-width: 2.5rem;
+        max-height: 2.5rem;
+    }
+
+    .author {
+        width: 95%;
+        border-radius: 25px;
+        margin: 0.5rem;
+        height: 2.5rem;
+    }
+    .author p {
+        color: black;
+        font-size: 1.25rem;
+        margin: 10px;
+    }
+
+    .commentimg {
+        width: 2.5rem;
+    }
+    
 }

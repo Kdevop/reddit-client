@@ -3,7 +3,7 @@
     border-radius: 25px;
     background-color: #F4FCFF;
     justify-content: space-between;
-    max-height: 147px;
+    max-height: 144px;
     margin-left: 120px;
     margin-right: 120px;
     align-items: center;
@@ -13,18 +13,90 @@
 .navbar img {
     height: 170px;
     width: 152px;
-    
 }
 
 h1 {
     font-size: 100px;
     color: black;
     font-weight: 1000;
-    
+   
 }
 
 h1 span {
     background: linear-gradient(to right, #DE1B0F, #780F08);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.navbarmob {
+    display: flex;
+    border-radius: 25px;
+    background-color: #F4FCFF;
+    justify-content: space-between;
+    max-height: 144px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.navbarmob img {
+    height: 170px;
+    width: 152px;
+}
+
+.menubtn {
+    border-radius: 25px;
+    background-color: #F4FCFF;
+}
+
+.menubtn img {
+    height: 140px;
+    width: 130px;
+}
+
+.subredmob {
+    width: 100%;
+    margin-top: 1rem;;
+}
+
+/* responsive design */
+@media only screen and (min-width: 1293px) {
+    .navbarmob {
+        display: none;
+    }
+    .subredmob {
+        display: none;
+    }    
+}
+
+@media only screen and (max-width: 1292px) {
+    .navbar {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .navbarmob {
+       margin-top: 0.5rem;
+       height: 3.25rem;
+    }
+
+    .navbarmob img {
+        height: 3.75rem;
+        width: auto;
+        margin-top: 0.2rem;
+    }
+
+    .menubtn img {
+        height: 3rem;
+        width: auto;
+        
+    }
+
+    .menubtn {
+        border-radius: 10px;
+        height: 3.25rem;
+    }
+
 }

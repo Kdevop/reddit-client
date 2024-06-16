@@ -9,9 +9,6 @@ import { fetchPostComments } from '../../reduxstore/commentsSlice';
 import { useDispatch } from 'react-redux';
 
 
-
-
-
 const PostCard = (props) => {
     const dispatch = useDispatch();
     const [showComments, setShowComments] = useState(false);
@@ -32,7 +29,7 @@ const PostCard = (props) => {
     }
 
     useEffect(() => {
-        dispatch(fetchPostComments(props.key));
+        dispatch(fetchPostComments(props.id));
     }, [showComments]);
     
     const displayComments = () => {

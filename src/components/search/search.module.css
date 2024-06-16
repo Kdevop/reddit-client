@@ -10,3 +10,11 @@
     opacity: 1;
 }
 
+@media only screen and (max-width: 600px) {
+    .search input {
+        font-size: 2rem;
+        width: 13rem;
+        border: 3px solid black;
+    }
+}
+
