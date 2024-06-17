@@ -1,13 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+
 export const fetchComments = createAsyncThunk('comments/fetchComments', async (postId) => {
         const response = await fetch(`https://api.reddit.com/comments/${postId}`)
         const data = await response.json();
-        // console.log(data[1].data.children);
         return data[1].data.children;
     }
 )
-
+ 
 const commentSlice = createSlice({
     name: 'comments',
     initialState: {
@@ -36,7 +36,6 @@ const commentSlice = createSlice({
                         author: author,
                         time: created_utc,
                         id: id,
-                        // postId: link_id.substr(3),
                         replies: replies,
                         body: body,
                        

@@ -15,7 +15,6 @@ export const fetchredditpost = createAsyncThunk('posts/fetchRedditPost', async (
     }
 });
 
-//we will need to update this following changes to the slice. 
 export const fetchFromSearch = createAsyncThunk('posts/fetchFromSearch', async (searchTerm, { getState, rejectWithValue }) => {
     const term = getState().posts.searchTerm;
     try {
@@ -63,7 +62,7 @@ const postSlice = createSlice({
         error: false,
     },
     reducers: {
-        //    extra reducers if needed would go here
+        //    reducers if needed would go here
     }, extraReducers: (builder) => {
         builder
             .addCase(fetchredditpost.fulfilled, (state, action) => {

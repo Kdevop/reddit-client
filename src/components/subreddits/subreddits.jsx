@@ -4,8 +4,6 @@ import Styles from './subreddits.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectedSubreddits, fetchSubreddits } from '../../reduxstore/subredditSlice';
 
-
-
 const Subreddits = () => {
     const dispatch = useDispatch();
     const subreddits = useSelector(selectedSubreddits);
@@ -24,10 +22,12 @@ const Subreddits = () => {
                     {subreddits && subreddits.map((subreddit) => (
                         <SubredditsCard
                             key={subreddit.id}
-                            icon={subreddit.icon_img || `https://api.adorable.io/avatars/25/${subreddit.display_name}`}
+                            icon={subreddit.iconImg}
                             alt={subreddit.display_name}
                             name={subreddit.display_name}
                             url={subreddit.url}
+                            communityImg={subreddit.communityIcon}
+                            className={Styles.subcard}
                         />
 
                     ))

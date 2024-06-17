@@ -39,13 +39,7 @@ const Reddits = () => {
                 return (
                 <PostCard
                     key={post.id}
-                    title={post.title}
-                    img={post.url_overridden_by_dest}
-                    words={post.selftext}
-                    author={post.author}
-                    likes={post.ups}
-                    detail={post.permalink}
-                    id={post.id}
+                    post={post}
                 />
                 );
             })}

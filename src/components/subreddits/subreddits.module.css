@@ -24,4 +24,9 @@
 
 .griditemsc {
     grid-column: 2 / span 10;
+    
+}
+
+.subcard {
+    transform: scale(1.05);
 }

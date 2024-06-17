@@ -6,11 +6,6 @@ import { NavLink } from 'react-router-dom';
 import burgermenu from '../../assets/bars-solid.png';
 import Subreddits from '../subreddits/subreddits';
 
-
-// mockdata at the following end point where 'happy' will be the {term}
-// https://www.reddit.com/search.json?q=$happy
-
-
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import Styles from './subredditCard.module.css';
 import {fetchSubredditPost} from '../../reduxstore/postSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 
 const SubredditsCard = (props) => {
@@ -30,7 +30,7 @@ const SubredditsCard = (props) => {
 
         <div className={Styles.card}>
             <div>{props.name}</div>
-            <button type='button' onClick={getSubRedPost}><img src={props.icon} className={Styles.scardimg} alt={`${props.alt}`}/></button>
+            <button type='button' onClick={getSubRedPost}><img src={props.icon? props.icon : props.communityImg} className={Styles.scardimg} alt={`${props.alt}`}/></button>
         </div>
     )
 }; 

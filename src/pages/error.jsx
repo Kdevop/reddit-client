@@ -29,8 +29,6 @@ class ErrorBoundary extends React.Component {
 export default ErrorBoundary;
   
 
-// styling to be completed after routing is sorted. 
-
 const ErrorPage = () => {
     
     const navigate = useNavigate();

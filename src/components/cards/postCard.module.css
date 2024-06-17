@@ -75,12 +75,16 @@ h3 {
 
 .author p {
     color: black;
-    font-size: 35px;
-    margin-left: 10px;
+    font-size: 1.75rem;
+    margin: 10px;
 }
 
 .commentsbutton:hover {
     cursor: pointer;
+}
+
+.selfText {
+    font-size: 2rem;
 }
 
 /* responsive design */

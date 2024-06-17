@@ -1,14 +1,14 @@
 import React from "react";
-
-
+import Styles from './displayComment.module.css';
 
 const DisplayComment = ({ comments }) => {
+     
     return (
-        <div>
-            <div>
-                {comments.author} {comments.time}
+        <div className={Styles.container}>
+            <div className={Styles.titlecont}>
+                {comments.author} {new Date(comments.time * 1000).toLocaleString()}
             </div>
-            <div>
+            <div className={Styles.commentbody}>
                 {comments.body}
             </div>
         </div>
@@ -17,3 +17,5 @@ const DisplayComment = ({ comments }) => {
 
 
 export default DisplayComment;
+
+

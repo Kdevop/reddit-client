@@ -6,8 +6,12 @@
     align-items: center;
     border-radius: 25px;
     height: 58px;
+    
 }
 
+.card:hover {
+    transform: scale(1.05);
+}
 
 .scardimg {
     height: 3rem;
@@ -17,4 +21,9 @@
 .card div {
     margin-left: 10px;
     font-size: 25px;
+}
+
+.scardimg:hover {
+    cursor: pointer;
+    transform: scale(1.05);
 }
