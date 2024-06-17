@@ -9,8 +9,13 @@ import ErrorBoundary from './pages/error.jsx';
 
 
 async function deferRender() {
-  const { worker } = await import('../src/mockdata/browser.js');
-  return worker.start();
+  if(process.env.NODE_ENV !== 'development') {
+    return
+  } else {
+    const { worker } = await import('../src/mockdata/browser.js');
+    return worker.start();
+  }
+
 }
 
 

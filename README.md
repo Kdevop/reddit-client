@@ -67,6 +67,7 @@ SOFTWARE.
 ### Future work
 -Error page and boundary to be imporved
 -Use of loading state for better visual appearance
+-Additional steps for the burger menu to close after a subreddit selection.
 
 
 

@@ -5,6 +5,7 @@ import logo from '../../assets/square-reddit.png';
 import { NavLink } from 'react-router-dom';
 import burgermenu from '../../assets/bars-solid.png';
 import Subreddits from '../subreddits/subreddits';
+import { setHeader } from '../header/headerSlice';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
